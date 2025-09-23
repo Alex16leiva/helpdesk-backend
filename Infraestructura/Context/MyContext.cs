@@ -1,6 +1,8 @@
 ﻿using Dominio.Context.Entidades.Seguridad;
+using Dominio.Context.Entidades.Tickets;
 using Dominio.Core;
 using Infraestructura.Context.Mapping.Seguridad;
+using Infraestructura.Context.Mapping.Tickets;
 using Infraestructura.Core;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +20,9 @@ namespace Infraestructura.Context
         public virtual DbSet<Rol> Rol {  get; set; }
         public virtual DbSet<Pantalla> Pantalla { get; set; }
         public virtual DbSet<Permisos> Permisos { get; set; }
+        public virtual DbSet<Ticket> Ticket { get; set; }
+        public virtual DbSet<TicketAttachment> TicketAttachment { get; set; }
+        public virtual DbSet<TicketComment> TicketComment { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,6 +30,9 @@ namespace Infraestructura.Context
             modelBuilder.ApplyConfiguration(new RolMap());
             modelBuilder.ApplyConfiguration(new PantallaMap());
             modelBuilder.ApplyConfiguration(new PermisosMap());
+            modelBuilder.ApplyConfiguration(new TicketMap());
+            modelBuilder.ApplyConfiguration(new TicketCommentMap());
+
             base.OnModelCreating(modelBuilder);
         }
 
