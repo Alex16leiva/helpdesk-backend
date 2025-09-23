@@ -11,14 +11,14 @@ namespace Infraestructura.Context.Mapping.Tickets
             builder.HasKey(t => t.TicketId);
             builder.ToTable("Ticket","dbo");
             builder.Property(t => t.TicketId).HasColumnName("Ticket");
-            builder.Property(t => t.Title).HasColumnName("Title");
-            builder.Property(t =>t.Description).HasColumnName("Description");
-            builder.Property(t => t.Priority).HasColumnName("Priority");
-            builder.Property(t => t.Status).HasColumnName("Status");
-            builder.Property(t => t.CreatedBy).HasColumnName("CreatedBy");
-            builder.Property(t => t.AssignedToUserId).HasColumnName("AssignedToUserId");
-            builder.Property(t => t.DateCreated).HasColumnName("DateCreated");
-            builder.Property(t => t.DateClosed).HasColumnName("DateClosed");
+            builder.Property(t => t.Titulo).HasColumnName("Titulo");
+            builder.Property(t =>t.Descripcion).HasColumnName("Descripcion");
+            builder.Property(t => t.Prioridad).HasColumnName("Prioridad");
+            builder.Property(t => t.Estado).HasColumnName("Estado");
+            builder.Property(t => t.CreadoPor).HasColumnName("CreadoPor");
+            builder.Property(t => t.AsignadoAUsuario).HasColumnName("AsignadoAUsuario");
+            builder.Property(t => t.FechaCreado).HasColumnName("FechaCreado");
+            builder.Property(t => t.FechaCierre).HasColumnName("FechaCierre");
             base.Configure(builder);
         }
     }

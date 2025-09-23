@@ -1,5 +1,6 @@
 using Aplicacion.Core;
 using Aplicacion.Services;
+using Aplicacion.Services.Tickets;
 using Infraestructura.Context;
 using Infraestructura.Core.Jwtoken;
 using Infraestructura.Core.RestClient;
@@ -50,6 +51,7 @@ RestClientFactory.SetCurrent(new HttpRestClientFactory());
 //builder.Services.AddTransient<IRestClientFactory, HttpRestClientFactory>();
 
 builder.Services.AddScoped<SecurityAplicationService>();
+builder.Services.AddScoped<TicketApplicationService>();
 
 builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
 
