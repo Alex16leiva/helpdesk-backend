@@ -1,5 +1,8 @@
 ﻿using Aplicacion.DTOs.Tickets;
+using Aplicacion.Helpers;
+using Dominio.Context;
 using Dominio.Context.Entidades.Tickets;
+using Dominio.Core;
 using Infraestructura.Context;
 
 namespace Aplicacion.Services.Tickets
@@ -13,9 +16,25 @@ namespace Aplicacion.Services.Tickets
             genericRepository = _genericRepository;
         }
 
-        public async Task<TicketDTO> CreateTicketAsync(TicketRequest ticket)
+        public async Task<TicketDTO> CreateTicketAsync(TicketRequest request)
         {
-            throw new NotImplementedException();
+            var nuevoTicket = new Ticket
+            {
+                TicketId = "",
+                AsignadoAUsuario = request.Ticket.AsignadoAUsuario,
+                CreadoPor = request.RequestUserInfo.UsuarioId,
+                Descripcion = request.Ticket.Descripcion,
+                Estado = Estado.Open,
+                Prioridad = 1,
+                Titulo = request.Ticket.Titulo,
+                Comentarios = [],
+                Adjuntos = [],
+            };
+
+            _genericRepository.Add(nuevoTicket);
+            TransactionInfo transactionInfo = request.RequestUserInfo.CrearTransactionInfo("EditarUsuario");
+            _genericRepository.UnitOfWork.Commit(transactionInfo);
+            return request.Ticket;
         }
     }
 }

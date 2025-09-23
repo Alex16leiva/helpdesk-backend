@@ -12,6 +12,6 @@ namespace Aplicacion.DTOs.Tickets
         public string? Descripcion { get; set; }
         public int? Prioridad { get; set; }
         public string? Estado { get; set; }
-
+        public string? AsignadoAUsuario { get; set; }
     }
 }
