@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aplicacion.DTOs.Tickets
 {
-    public class TicketDTO : RequestBase
+    public class TicketDTO : ResponseBase
     {
         public string? Titulo { get; set; }
         public string? Descripcion { get; set; }

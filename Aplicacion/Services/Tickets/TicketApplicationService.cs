@@ -1,9 +1,6 @@
-﻿using Infraestructura.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Aplicacion.DTOs.Tickets;
+using Dominio.Context.Entidades.Tickets;
+using Infraestructura.Context;
 
 namespace Aplicacion.Services.Tickets
 {
@@ -16,6 +13,9 @@ namespace Aplicacion.Services.Tickets
             genericRepository = _genericRepository;
         }
 
-
+        public async Task<TicketDTO> CreateTicketAsync(TicketRequest ticket)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

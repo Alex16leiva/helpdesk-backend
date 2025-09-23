@@ -1,4 +1,6 @@
-﻿using Aplicacion.Services.Tickets;
+﻿using Aplicacion.DTOs.Tickets;
+using Aplicacion.Services.Tickets;
+using Dominio.Context.Entidades.Tickets;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +15,14 @@ namespace WebServices.Controllers.Tickets
         public TicketController(TicketApplicationService ticketApplicationService)
         {
             _ticketApplicationService = ticketApplicationService;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateTicket([FromBody] TicketRequest ticket)
+        {
+
+            var result = await _ticketApplicationService.CreateTicketAsync(ticket);
+            return Ok(result);
         }
     }
 }

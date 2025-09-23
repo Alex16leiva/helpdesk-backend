@@ -18,8 +18,8 @@ namespace Infraestructura.Context.Mapping.Tickets
             builder.ToTable("TicketComment", "dbo");
             builder.Property(t => t.Id).HasColumnName("Id");
             builder.Property(t => t.TicketId).HasColumnName("TicketId");
-            builder.Property(t => t.AuthorId).HasColumnName("Author");
-            builder.Property(t => t.Message).HasColumnName("Message");
+            builder.Property(t => t.CreadoPor).HasColumnName("CreadoPor");
+            builder.Property(t => t.Mensaje).HasColumnName("Mensaje");
             base.Configure(builder);
         }
     }
