@@ -12,7 +12,6 @@ namespace Dominio.Context.Entidades.Tickets
         public required string CreadoPor { get; set; }
         public required string AsignadoAUsuario { get; set; }
         public DateTime FechaCreado { get; set; } = DateTime.UtcNow;
-        public DateTime? FechaCierre { get; set; }
         public virtual ICollection<TicketComment> Comentarios { get; set; } = [];
         public virtual ICollection<TicketAttachment> Adjuntos { get; set; } = [];
     }

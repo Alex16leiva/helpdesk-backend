@@ -2,14 +2,18 @@ using Aplicacion.Core;
 using Aplicacion.Services;
 using Aplicacion.Services.Tickets;
 using Infraestructura.Context;
+using Infraestructura.Core.DataBasesInfo;
+using Infraestructura.Core.Identity;
 using Infraestructura.Core.Jwtoken;
 using Infraestructura.Core.RestClient;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 using WebServices.Jwtoken;
 using WebServices.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
+DataBaseConnectionStrings.Initialize(builder.Configuration);
 
 // Add services to the container.
 
@@ -49,11 +53,14 @@ builder.Services.AddTransient<ITokenService, JwtTokenService>();
 RestClientFactory.SetCurrent(new HttpRestClientFactory());
 //builder.Services.AddTransient<IRestClient, HttpRestClient>();
 //builder.Services.AddTransient<IRestClientFactory, HttpRestClientFactory>();
+IdentityFactory.SetCurrent(new ADOIdentityGeneratorFactory());
 
 builder.Services.AddScoped<SecurityAplicationService>();
 builder.Services.AddScoped<TicketApplicationService>();
 
 builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
+
+
 
 var app = builder.Build();
 

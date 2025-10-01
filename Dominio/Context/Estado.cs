@@ -2,8 +2,8 @@
 {
     public static class Estado
     {
-        public const string Open = "open";
-        public const string Close = "close";
+        public const string Open = "Open";
+        public const string Close = "Close";
         public const string InProcess = "InProcess";
     }
 }

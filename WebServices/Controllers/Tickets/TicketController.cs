@@ -1,6 +1,7 @@
 ﻿using Aplicacion.DTOs.Tickets;
 using Aplicacion.Services.Tickets;
 using Dominio.Context.Entidades.Tickets;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,7 @@ namespace WebServices.Controllers.Tickets
         {
             _ticketApplicationService = ticketApplicationService;
         }
-
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> CreateTicket([FromBody] TicketRequest ticket)
         {

@@ -4,6 +4,7 @@ using Dominio.Context;
 using Dominio.Context.Entidades.Tickets;
 using Dominio.Core;
 using Infraestructura.Context;
+using Infraestructura.Core.Identity;
 
 namespace Aplicacion.Services.Tickets
 {
@@ -13,14 +14,14 @@ namespace Aplicacion.Services.Tickets
 
         public TicketApplicationService(IGenericRepository<IDataContext> genericRepository)
         {
-            genericRepository = _genericRepository;
+            _genericRepository = genericRepository;
         }
 
         public async Task<TicketDTO> CreateTicketAsync(TicketRequest request)
         {
             var nuevoTicket = new Ticket
             {
-                TicketId = "",
+                TicketId = IdentityFactory.CreateIdentity().NextCorrelativeIdentity(Correlativo.Ticket),
                 AsignadoAUsuario = request.Ticket.AsignadoAUsuario,
                 CreadoPor = request.RequestUserInfo.UsuarioId,
                 Descripcion = request.Ticket.Descripcion,
