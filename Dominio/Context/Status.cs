@@ -1,6 +1,6 @@
 ﻿namespace Dominio.Context
 {
-    public static class Estado
+    public static class Status
     {
         public const string Open = "Open";
         public const string Close = "Close";

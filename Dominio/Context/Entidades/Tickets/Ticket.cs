@@ -14,5 +14,22 @@ namespace Dominio.Context.Entidades.Tickets
         public DateTime FechaCreado { get; set; } = DateTime.UtcNow;
         public virtual ICollection<TicketComment> Comentarios { get; set; } = [];
         public virtual ICollection<TicketAttachment> Adjuntos { get; set; } = [];
+
+        public void AsignarUsuario(string asignadoAUsuario)
+        {
+            if (AsignadoAUsuario != asignadoAUsuario)
+            {
+                AsignadoAUsuario = asignadoAUsuario;
+                if (!IsClosed())
+                {
+                    Estado = Status.InProcess;
+                }
+            }
+        }
+
+        public bool IsClosed()
+        {
+            return Estado == Status.Close;
+        }
     }
 }
