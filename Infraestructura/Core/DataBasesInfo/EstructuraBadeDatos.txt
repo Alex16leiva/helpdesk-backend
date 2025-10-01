@@ -164,3 +164,16 @@ CREATE TABLE [Seguridad].[Usuario_Transacciones](
     [TipoTransaccion] [varchar](50) NOT NULL,
     [TransaccionUId] [uniqueidentifier] NOT NULL
 ) ON [PRIMARY];
+
+CREATE TABLE [Comunes].[CorrelativosPaquetes](
+	[PaqueteId] [varchar](5) NOT NULL,
+	[Correlativo] [varchar](50) NOT NULL,
+	[Alfanumerico] [bit] NOT NULL,
+	[Ancho] [int] NOT NULL,
+	[Descripcion] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_CorrelativosPaquetes] PRIMARY KEY CLUSTERED 
+(
+	[PaqueteId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
