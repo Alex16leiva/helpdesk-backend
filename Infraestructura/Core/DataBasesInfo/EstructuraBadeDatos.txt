@@ -2,6 +2,21 @@
 CREATE SCHEMA Comunes;
 CREATE SCHEMA Seguridad;
 
+--CreateStoreProcedures
+CREATE PROCEDURE [Comunes].[ObtenerCorrelativo](@PaqueteTransID CHAR(15), @SiguienteCorrelativo VarChar(50) OUTPUT) 	
+AS
+BEGIN
+DECLARE @CorrelativoActual varchar(50), @Ancho int
+SELECT @CorrelativoActual = Correlativo, @Ancho = Ancho FROM Comunes.CorrelativosPaquetes WHERE PaqueteId = @PaqueteTransID	 
+
+SET @CorrelativoActual = @CorrelativoActual + 1
+UPDATE Comunes.CorrelativosPaquetes SET Correlativo = @CorrelativoActual WHERE PaqueteId = @PaqueteTransID 
+SET @SiguienteCorrelativo = RTRIM(LTrim(@PaqueteTransID))+Right(Replicate('0',@Ancho) + Convert(Varchar,@CorrelativoActual),@Ancho)
+
+SELECT @SiguienteCorrelativo
+END
+
+
 -- Crear tabla LogTransacciones
 CREATE TABLE [Comunes].[LogTransacciones](
     [TransaccionUId] [uniqueidentifier] NOT NULL,
