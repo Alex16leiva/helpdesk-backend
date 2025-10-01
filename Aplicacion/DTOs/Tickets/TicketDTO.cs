@@ -8,6 +8,7 @@ namespace Aplicacion.DTOs.Tickets
 {
     public class TicketDTO : ResponseBase
     {
+        public string? TicketId { get; set; }
         public string? Titulo { get; set; }
         public string? Descripcion { get; set; }
         public int? Prioridad { get; set; }

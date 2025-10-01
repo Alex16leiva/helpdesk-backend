@@ -10,7 +10,7 @@ namespace Infraestructura.Context.Mapping.Tickets
         {
             builder.HasKey(t => t.TicketId);
             builder.ToTable("Ticket","dbo");
-            builder.Property(t => t.TicketId).HasColumnName("Ticket");
+            builder.Property(t => t.TicketId).HasColumnName("TicketId");
             builder.Property(t => t.Titulo).HasColumnName("Titulo");
             builder.Property(t =>t.Descripcion).HasColumnName("Descripcion");
             builder.Property(t => t.Prioridad).HasColumnName("Prioridad");
