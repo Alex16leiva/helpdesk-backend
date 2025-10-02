@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebServices.Controllers.Tickets
 {
-    [Route("api/ticket/by-ticket-id")]
+    [Route("api/ticket")]
     [ApiController]
     public class TicketController : ControllerBase
     {
@@ -19,11 +19,19 @@ namespace WebServices.Controllers.Tickets
             _ticketApplicationService = ticketApplicationService;
         }
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("create-ticket")]
         public async Task<IActionResult> CreateTicket([FromBody] TicketRequest ticket)
         {
 
-            var result = await _ticketApplicationService.CreateTicketAsync(ticket);
+            var result = _ticketApplicationService.CreateTicket(ticket);
+            return Ok(result);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("crear-ticket-comment")]
+        public async Task<IActionResult> CrearTicketComment([FromBody] TicketCommentRequest request)
+        {
+            var result = _ticketApplicationService.CreateComment(request);
             return Ok(result);
         }
 

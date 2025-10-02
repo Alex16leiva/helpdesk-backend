@@ -1,7 +1,6 @@
 ﻿using Aplicacion.DTOs;
 using Aplicacion.DTOs.Tickets;
 using Aplicacion.Helpers;
-using Azure.Core;
 using Dominio.Context;
 using Dominio.Context.Entidades.Tickets;
 using Dominio.Core;
@@ -20,7 +19,7 @@ namespace Aplicacion.Services.Tickets
             _genericRepository = genericRepository;
         }
 
-        public async Task<TicketDTO> CreateTicketAsync(TicketRequest request)
+        public TicketDTO CreateTicket(TicketRequest request)
         {
             var nuevoTicket = new Ticket
             {
@@ -31,8 +30,8 @@ namespace Aplicacion.Services.Tickets
                 Estado = Status.Open,
                 Prioridad = 1,
                 Titulo = request.Ticket.Titulo,
-                Comentarios = [],
-                Adjuntos = [],
+                TicketComment = [],
+                TicketAttachment = [],
             };
 
             _genericRepository.Add(nuevoTicket);
@@ -40,7 +39,6 @@ namespace Aplicacion.Services.Tickets
             _genericRepository.UnitOfWork.Commit(transactionInfo);
             return request.Ticket;
         }
-
         public async Task<TicketDTO> UpdateTicketAsync(TicketRequest request)
         {
             Ticket ticket = await _genericRepository.GetSingleAsync<Ticket>(r => r.TicketId == request.Ticket.TicketId);
@@ -67,7 +65,8 @@ namespace Aplicacion.Services.Tickets
         }
         public async Task<TicketDTO> GetTicketAsync(TicketRequest request)
         {
-            Ticket ticket = await _genericRepository.GetSingleAsync<Ticket>(r => r.TicketId == request.Ticket.TicketId);
+            List<string> includes = new List<string> { "TicketComment" };
+            Ticket ticket = await _genericRepository.GetSingleAsync<Ticket>(r => r.TicketId == request.Ticket.TicketId, includes);
             if (ticket.IsNull())
             {
                 return new TicketDTO
@@ -78,9 +77,9 @@ namespace Aplicacion.Services.Tickets
 
             return MapTicketDto(ticket);
         }
-
         public SearchResult<TicketDTO> GetAllTickets(TicketRequest request)
         {
+            request.QueryInfo.Includes = new List<string> { "TicketComment" };
             var dynamicFilter = DynamicFilterFactory.CreateDynamicFilter(request.QueryInfo);
             PagedCollection tickets = _genericRepository.GetPagedAndFiltered<Ticket>(dynamicFilter);
 
@@ -93,8 +92,6 @@ namespace Aplicacion.Services.Tickets
                 Items = (from ticket in tickets.Items as IEnumerable<Ticket> select MapTicketDto(ticket)).ToList(),
             };
         }
-
-
         private static TicketDTO MapTicketDto(Ticket ticket)
         {
             return new TicketDTO
@@ -108,7 +105,49 @@ namespace Aplicacion.Services.Tickets
                 AsignadoAUsuario = ticket.AsignadoAUsuario,
                 FechaCreado = ticket.FechaCreado,
                 FechaTransaccion = ticket.FechaTransaccion,
+                Comentarios = MapComentarios(ticket.TicketComment),
             };
+        }
+        private static List<TicketCommentDTO> MapComentarios(ICollection<TicketComment> comentarios)
+        {
+            return comentarios.Select(x => new TicketCommentDTO
+            {
+                Id = x.Id,
+                Comentario = x.Comentario,
+                TicketId = x.TicketId,
+                FechaTransaccion = x.FechaTransaccion
+            }).ToList();
+        }
+        public TicketCommentDTO CreateComment(TicketCommentRequest request)
+        {
+            string ticketId = request.TicketComment.TicketId;
+            Ticket ticket = _genericRepository.GetSingle<Ticket>(r => r.TicketId == ticketId);
+            if (ticket.IsNull())
+            {
+                return new TicketCommentDTO
+                {
+                    Message = $"El ticket {ticketId} no existe"
+                };
+            }
+            if (ticket.IsClosed())
+            {
+                return new TicketCommentDTO
+                {
+                    Message = $"El ticket {ticketId} ya esta cerrado"
+                };
+            }
+
+            TicketComment nuevoComentario = new()
+            {
+                TicketId = ticket.TicketId,
+                Comentario = request.TicketComment.Comentario,
+            };
+
+            _genericRepository.Add(nuevoComentario);
+            TransactionInfo transactionInfo = request.RequestUserInfo.CrearTransactionInfo("CrearComentario");
+            _genericRepository.UnitOfWork.Commit(transactionInfo);
+
+            return new TicketCommentDTO();
         }
     }
 }

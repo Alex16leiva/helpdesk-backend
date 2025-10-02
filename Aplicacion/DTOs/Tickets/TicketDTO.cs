@@ -16,5 +16,6 @@ namespace Aplicacion.DTOs.Tickets
         public string? AsignadoAUsuario { get; set; }
         public string? CreadoPor { get; set; }
         public DateTime? FechaCreado { get; set; }
+        public List<TicketCommentDTO>? Comentarios { get; set; }
     }
 }

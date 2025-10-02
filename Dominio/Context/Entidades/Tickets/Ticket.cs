@@ -1,4 +1,5 @@
 ﻿using Dominio.Core;
+using Dominio.Core.Extensions;
 
 namespace Dominio.Context.Entidades.Tickets
 {
@@ -12,8 +13,8 @@ namespace Dominio.Context.Entidades.Tickets
         public required string CreadoPor { get; set; }
         public required string AsignadoAUsuario { get; set; }
         public DateTime FechaCreado { get; set; } = DateTime.UtcNow;
-        public virtual ICollection<TicketComment> Comentarios { get; set; } = [];
-        public virtual ICollection<TicketAttachment> Adjuntos { get; set; } = [];
+        public virtual ICollection<TicketComment> TicketComment { get; set; } = [];
+        public virtual ICollection<TicketAttachment> TicketAttachment { get; set; } = [];
 
         public void AsignarUsuario(string asignadoAUsuario)
         {
@@ -22,7 +23,14 @@ namespace Dominio.Context.Entidades.Tickets
                 AsignadoAUsuario = asignadoAUsuario;
                 if (!IsClosed())
                 {
-                    Estado = Status.InProcess;
+                    if (AsignadoAUsuario.IsEmpty())
+                    {
+                        Estado = Status.Open;
+                    }
+                    else 
+                    {
+                        Estado = Status.InProcess;
+                    }
                 }
             }
         }

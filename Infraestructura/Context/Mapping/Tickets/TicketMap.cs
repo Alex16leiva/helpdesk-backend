@@ -18,6 +18,7 @@ namespace Infraestructura.Context.Mapping.Tickets
             builder.Property(t => t.CreadoPor).HasColumnName("CreadoPor");
             builder.Property(t => t.AsignadoAUsuario).HasColumnName("AsignadoAUsuario");
             builder.Property(t => t.FechaCreado).HasColumnName("FechaCreado");
+            builder.HasMany(t => t.TicketComment).WithOne(t => t.Ticket).HasForeignKey(t => t.TicketId);
             base.Configure(builder);
         }
     }

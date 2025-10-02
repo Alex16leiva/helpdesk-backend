@@ -5,5 +5,8 @@
         public TicketDTO Ticket { get; set; }
     }
 
-
+    public class TicketCommentRequest : RequestBase
+    {
+        public TicketCommentDTO TicketComment { get; set; }
+    }
 }
