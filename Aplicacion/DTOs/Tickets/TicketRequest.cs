@@ -2,11 +2,11 @@
 {
     public class TicketRequest : RequestBase
     {
-        public TicketDTO Ticket { get; set; }
+        public TicketDTO? Ticket { get; set; }
     }
 
     public class TicketCommentRequest : RequestBase
     {
-        public TicketCommentDTO TicketComment { get; set; }
+        public TicketCommentDTO? TicketComment { get; set; }
     }
 }

@@ -1,7 +1,4 @@
-﻿using Castle.Core.Configuration;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-
-namespace Infraestructura.Core.DataBasesInfo
+﻿namespace Infraestructura.Core.DataBasesInfo
 {
     public static class DataBaseConnectionStrings
     {

@@ -5,28 +5,23 @@ namespace Aplicacion.DTOs
     public abstract class ResponseBase
     {
         public string? Message { get; set; }
-        public string? ValidationErrorMessage { get; set; }
         public string? SuccessMessage { get; set; }
         public DateTime? FechaTransaccion { get; set; }
 
-        public bool HasValidationMessage()
+
+        public bool HasValitationMessage()
         {
             return Message.HasValue();
         }
 
-        public bool HasValidationErrorMessage()
-        {
-            return !string.IsNullOrWhiteSpace(ValidationErrorMessage);
-        }
-
         public void AppendValidationErrorMessage(string message)
         {
-            if (HasValidationErrorMessage())
+            if (HasValitationMessage())
             {
-                ValidationErrorMessage = $"{ValidationErrorMessage}, {message}";
+                Message = $"{Message}, {message}";
                 return;
             }
-            ValidationErrorMessage = message;
+            Message = message;
         }
     }
 }

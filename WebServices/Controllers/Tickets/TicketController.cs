@@ -23,7 +23,7 @@ namespace WebServices.Controllers.Tickets
         public async Task<IActionResult> CreateTicket([FromBody] TicketRequest ticket)
         {
 
-            var result = _ticketApplicationService.CreateTicket(ticket);
+            var result =  _ticketApplicationService.CreateTicket(ticket);
             return Ok(result);
         }
 
@@ -31,7 +31,7 @@ namespace WebServices.Controllers.Tickets
         [HttpPost("crear-ticket-comment")]
         public async Task<IActionResult> CrearTicketComment([FromBody] TicketCommentRequest request)
         {
-            var result = _ticketApplicationService.CreateComment(request);
+            var result = await _ticketApplicationService.CreateComment(request);
             return Ok(result);
         }
 
@@ -48,6 +48,16 @@ namespace WebServices.Controllers.Tickets
             var result = await _ticketApplicationService.GetTicketAsync(request);
             return Ok(result);
         }
+
+        [AllowAnonymous]
+        [HttpGet("tickets-info")]
+        public List<TicketsInfoDTO> GetTicketsInfo()
+        {
+            var result = _ticketApplicationService.GetDashBoardInfo();
+
+            return result;
+        }
+
         [AllowAnonymous]
         [HttpPost("get-paged")]
         public SearchResult<TicketDTO> GetTicketsPaged(TicketRequest request)
@@ -61,6 +71,14 @@ namespace WebServices.Controllers.Tickets
         public async Task<IActionResult> UpdateTicketAsync(TicketRequest request)
         {
             var result = await _ticketApplicationService.UpdateTicketAsync(request);
+            return Ok(result);
+        }
+
+        [AllowAnonymous]
+        [HttpPut("cerrar-ticket")]
+        public async Task<IActionResult> ClosedTicket(TicketRequest request)
+        {
+            var result = await _ticketApplicationService.CerrarTicket(request);
             return Ok(result);
         }
     }

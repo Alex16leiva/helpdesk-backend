@@ -8,6 +8,6 @@ namespace Dominio.Context
 {
     public static class Correlativo
     {
-        public const string Ticket = "TI";
+        public const string Ticket = "TKT";
     }
 }

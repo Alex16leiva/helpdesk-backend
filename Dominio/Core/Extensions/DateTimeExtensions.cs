@@ -8,6 +8,21 @@ namespace Dominio.Core.Extensions
         {
             return date.ToString("yyyy-MMM-dd hh:mm tt");
         }
+
+        public static DateTime FirstDateOfMonth(this DateTime date)
+        {
+            return new DateTime(date.Year, date.Month, 1);
+        }
+
+        public static DateTime LastDateOfMonth(this DateTime date)
+        {
+            int year = date.Year;
+            int month = date.Month;
+
+            int lastDay = DateTime.DaysInMonth(year, month); // obtiene el número exacto de días del mes
+            return new DateTime(year, month, lastDay, 23, 59, 59);
+        }
+
         public static DateTime MinDate(this IEnumerable<DateTime> dates)
         {
             return dates.Items().Min(c => c);
