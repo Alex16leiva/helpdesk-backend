@@ -1,5 +1,6 @@
 using Aplicacion.Core;
 using Aplicacion.Services;
+using Aplicacion.Services.BConocimiento;
 using Aplicacion.Services.Tickets;
 using Infraestructura.Context;
 using Infraestructura.Core.DataBasesInfo;
@@ -57,6 +58,8 @@ IdentityFactory.SetCurrent(new ADOIdentityGeneratorFactory());
 
 builder.Services.AddScoped<SecurityAplicationService>();
 builder.Services.AddScoped<TicketApplicationService>();
+builder.Services.AddScoped<ArticuloAppService>();
+builder.Services.AddScoped<CategoriaAppService>();
 
 builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
 
