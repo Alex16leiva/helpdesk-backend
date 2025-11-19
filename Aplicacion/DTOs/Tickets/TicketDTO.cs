@@ -17,5 +17,10 @@ namespace Aplicacion.DTOs.Tickets
         public string? CreadoPor { get; set; }
         public DateTime? FechaCreado { get; set; }
         public List<TicketCommentDTO>? Comentarios { get; set; }
+
+        internal string ObtenerUsuarioQueCreoTicket()
+        {
+            return CreadoPor ?? string.Empty;
+        }
     }
 }

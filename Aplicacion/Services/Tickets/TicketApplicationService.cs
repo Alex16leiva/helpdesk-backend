@@ -25,8 +25,8 @@ namespace Aplicacion.Services.Tickets
             var nuevoTicket = new Ticket
             {
                 TicketId = IdentityFactory.CreateIdentity().NextCorrelativeIdentity(Correlativo.Ticket),
-                AsignadoAUsuario = request.Ticket.AsignadoAUsuario,
-                CreadoPor = request.RequestUserInfo.UsuarioId,
+                AsignadoAUsuario = request.Ticket.AsignadoAUsuario.ValueOrEmpty(),
+                CreadoPor = request.ObtenerUsuarioQueCreoTicket(),
                 Descripcion = request.Ticket.Descripcion,
                 Estado = Status.Open,
                 Prioridad = (int)request.Ticket.Prioridad,
@@ -37,8 +37,12 @@ namespace Aplicacion.Services.Tickets
 
             _genericRepository.Add(nuevoTicket);
             CommitTransaction(request.RequestUserInfo, "CrearTicket");
+            request.Ticket.TicketId = nuevoTicket.TicketId;
             return request.Ticket;
         }
+
+       
+
         public List<TicketsInfoDTO> GetDashBoardInfo()
         {
             return [.. GetActiveTickets(), .. GetSolveTickets(), .. GetOlderTicket()];
@@ -100,7 +104,7 @@ namespace Aplicacion.Services.Tickets
             var ticketId = request.Ticket.TicketId;
             var (ticket, validationMessage) = await ValidarTicketAsync(ticketId);
 
-            if (validationMessage.HasValitationMessage())
+            if (validationMessage.IsNotNull() && validationMessage.HasValitationMessage())
             {
                 return new TicketDTO
                 {
@@ -173,10 +177,11 @@ namespace Aplicacion.Services.Tickets
         }
         public async Task<TicketCommentDTO> CreateComment(TicketCommentRequest request)
         {
-            string ticketId = request.TicketComment.TicketId;
-            var(ticket, validationMessage) = await ValidarTicketAsync(ticketId);
+            string ticketId = request.TicketComment.TicketId.ValueOrEmpty();
+            
+            var (ticket, validationMessage) = await ValidarTicketAsync(ticketId);
 
-            if (validationMessage.IsNotNull() && validationMessage.IsNotNull() && validationMessage.HasValitationMessage())
+            if (validationMessage.IsNotNull() && validationMessage.HasValitationMessage())
             {
                 return new TicketCommentDTO
                 {
@@ -187,7 +192,7 @@ namespace Aplicacion.Services.Tickets
             TicketComment nuevoComentario = new()
             {
                 TicketId = ticket.TicketId,
-                Comentario = request.TicketComment.Comentario,
+                Comentario = request.TicketComment.Comentario.ValueOrEmpty(),
             };
 
             _genericRepository.Add(nuevoComentario);
