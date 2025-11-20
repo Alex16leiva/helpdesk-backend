@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebServices.Controllers.BConocimiento
 {
-    [Route("api/[controller]")]
+    [Route("api/article")]
     [ApiController]
     public class ArticuloController : Controller
     {
@@ -24,9 +24,9 @@ namespace WebServices.Controllers.BConocimiento
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpPost("get-articles")]
         [Authorize]
-        public IActionResult ObtenerArticulos([FromQuery] BaseConocimientoArticuloRequest request)
+        public IActionResult ObtenerArticulos(BaseConocimientoArticuloRequest request)
         {
             var result = _articuloService.ObtenerArticulosAsync(request);
             return Ok(result);

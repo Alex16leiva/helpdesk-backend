@@ -8,7 +8,7 @@ using Infraestructura.Core.Identity;
 using Infraestructura.Core.Jwtoken;
 using Infraestructura.Core.RestClient;
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
+using WebServices.Configuraciones;
 using WebServices.Jwtoken;
 using WebServices.Middleware;
 
@@ -21,7 +21,8 @@ DataBaseConnectionStrings.Initialize(builder.Configuration);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.ConfigureSwagger();
+
 
 builder.ConfigureJwt();
 

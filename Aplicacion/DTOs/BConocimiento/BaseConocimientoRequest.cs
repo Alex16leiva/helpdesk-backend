@@ -2,11 +2,11 @@
 {
     public class BaseConocimientoCategoriaRequest : RequestBase
     {
-        public BaseConocimientoCategoriaDTO Categoria { get; set; }
+        public BaseConocimientoCategoriaDTO? Categoria { get; set; }
     }
 
     public class BaseConocimientoArticuloRequest : RequestBase
     {
-        public BaseConocimientoArticuloDTO Articulo { get; set; }
+        public BaseConocimientoArticuloDTO? Articulo { get; set; }
     }
 }

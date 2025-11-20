@@ -58,7 +58,7 @@ namespace WebServices.Controllers.Tickets
             return result;
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpPost("get-paged")]
         public SearchResult<TicketDTO> GetTicketsPaged(TicketRequest request)
         {
