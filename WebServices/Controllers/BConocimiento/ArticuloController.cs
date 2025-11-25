@@ -32,7 +32,7 @@ namespace WebServices.Controllers.BConocimiento
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("get-article/{id}")]
         [Authorize]
         public async Task<IActionResult> ObtenerArticuloPorId(int id)
         {
@@ -40,7 +40,7 @@ namespace WebServices.Controllers.BConocimiento
             return Ok(result);
         }
 
-        [HttpPut]
+        [HttpPut("update-article")]
         [Authorize]
         public async Task<IActionResult> ActualizarArticulo([FromBody] BaseConocimientoArticuloRequest request)
         {

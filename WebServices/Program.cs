@@ -1,13 +1,5 @@
 using Aplicacion.Core;
-using Aplicacion.Services;
-using Aplicacion.Services.BConocimiento;
-using Aplicacion.Services.Tickets;
-using Infraestructura.Context;
 using Infraestructura.Core.DataBasesInfo;
-using Infraestructura.Core.Identity;
-using Infraestructura.Core.Jwtoken;
-using Infraestructura.Core.RestClient;
-using Microsoft.EntityFrameworkCore;
 using WebServices.Configuraciones;
 using WebServices.Jwtoken;
 using WebServices.Middleware;
@@ -28,39 +20,9 @@ builder.ConfigureJwt();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
-const string AllowAllOriginsPolicy = "AllowAllOriginsPolicy";
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(AllowAllOriginsPolicy,
-        x =>
-        {
-            x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
-        });
-});
-
-string conectionString = builder.Configuration.GetConnectionString("conectionDataBase");
-
-builder.Services.AddDbContext<MyContext>(
-        dbContextOption => dbContextOption.UseSqlServer(conectionString), ServiceLifetime.Transient
-    );
-
-builder.Services.AddTransient<IDataContext, MyContext>();
-builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-
-//Register Json Web Token
-builder.Services.AddTransient<ITokenService, JwtTokenService>();
-
-
-RestClientFactory.SetCurrent(new HttpRestClientFactory());
-//builder.Services.AddTransient<IRestClient, HttpRestClient>();
-//builder.Services.AddTransient<IRestClientFactory, HttpRestClientFactory>();
-IdentityFactory.SetCurrent(new ADOIdentityGeneratorFactory());
-
-builder.Services.AddScoped<SecurityAplicationService>();
-builder.Services.AddScoped<TicketApplicationService>();
-builder.Services.AddScoped<ArticuloAppService>();
-builder.Services.AddScoped<CategoriaAppService>();
+builder.Services.AddApplicationServices()
+                .AddInfrastructure(builder.Configuration)
+                .AddCorsPolicy();
 
 builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
 

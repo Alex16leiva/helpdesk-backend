@@ -58,7 +58,9 @@ namespace Aplicacion.Services.BConocimiento
                 Titulo = qry.Titulo,
                 Contenido = qry.Contenido,
                 Tags = qry.Tags,
-                CategoriaId = qry.CategoriaId
+                CategoriaId = qry.CategoriaId,
+                FechaCreacion = qry.FechaCreacion,
+                FechaTransaccion = qry.FechaTransaccion,
             };
         }
 

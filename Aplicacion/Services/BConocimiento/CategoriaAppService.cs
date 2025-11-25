@@ -35,7 +35,7 @@ namespace Aplicacion.Services.BConocimiento
         public SearchResult<BaseConocimientoCategoriaDTO> ObtenerCategoriasAsync(BaseConocimientoCategoriaRequest request)
         {
             var dynamicFilter = DynamicFilterFactory.CreateDynamicFilter(request.QueryInfo);
-            var categoria = _repositorio.GetPagedAndFiltered<Usuario>(dynamicFilter);
+            var categoria = _repositorio.GetPagedAndFiltered<BaseConocimientoCategoria>(dynamicFilter);
 
             return new SearchResult<BaseConocimientoCategoriaDTO>
             {

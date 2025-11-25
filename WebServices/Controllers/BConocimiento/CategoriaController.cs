@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebServices.Controllers.BConocimiento
 {
-    [Route("api/[controller]")]
+    [Route("api/categoria")]
     [ApiController]
     public class CategoriaController : Controller
     {
@@ -24,9 +24,9 @@ namespace WebServices.Controllers.BConocimiento
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpPost("get-categories")]
         [Authorize]
-        public IActionResult ObtenerCategorias([FromQuery] BaseConocimientoCategoriaRequest request)
+        public IActionResult ObtenerCategorias(BaseConocimientoCategoriaRequest request)
         {
             var result = _categoriaService.ObtenerCategoriasAsync(request);
             return Ok(result);
