@@ -16,7 +16,7 @@ namespace WebServices.Controllers.BConocimiento
             _articuloService = articuloService;
         }
 
-        [HttpPost]
+        [HttpPost("create-article")]
         [Authorize]
         public IActionResult CrearArticulo([FromBody] BaseConocimientoArticuloRequest request)
         {
