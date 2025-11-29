@@ -1,39 +1,63 @@
-<h1 align="center">TemplateBackEndNetCore</h1>
+# Helpdesk System
 
-Template base para crear proyectos backend Asp.net core 8.
-## 🚀 Tecnologias
+A full-stack helpdesk application built with **ASP.NET Core** and **React**, designed to streamline ticket management and improve business support efficiency.
 
-- C#
-- .NET Core 8
-- Entity Framework Core
-- AutoMapper
-- BCrypt
-- Swagger
-- JWT
+---
 
-## Instalación
+## 🚀 Key Features
+- 🎫 Ticket management (create, assign, update, close)
+- 👥 User roles (admin, agent, client)
+- 📊 Dashboard with basic ticket metrics
+- 🔐 Authentication with JWT and HttpOnly cookies
+- 🗄️ SQL Server integration
+- ⚙️ Modular and scalable architecture
 
-1. Clona el repositorio a tu máquina local.
-2. Abre el proyecto en Visual Studio o tu IDE preferido.
-3. Configura la cadena de conexión a la base de datos en el archivo `appsettings.json`.
-4. Ejecuta el comando `Update-Database` en la Consola del Administrador de Paquetes para aplicar las migraciones a la base de datos.
+---
 
-## Uso
+## 🛠️ Technologies Used
+- **Backend:** ASP.NET Core, Entity Framework, SQL Server
+- **Frontend:** React, Redux, Hooks
+- **Authentication:** JWT + HttpOnly cookies
+- **Version Control:** Git
 
-Describe cómo usar el proyecto template, incluyendo ejemplos de código si es necesario.
+---
 
-## Contribución
+## 📦 Installation & Setup
 
-Si deseas contribuir a este proyecto, por favor sigue las siguientes pautas:
-- Abre un issue para discutir los cambios que deseas realizar.
-- Realiza tus cambios en una nueva rama.
-- Envía un Pull Request con una descripción clara de los cambios propuestos.
+### Backend
+1. Clone repository  
+2. Configure `appsettings.json` with database connection string  
+3. Run EF Core migrations  
+4. Start API with `dotnet run`  
 
-## Licencia
+### Frontend
+1. Clone repository  
+2. Run `npm install`  
+3. Configure API URL in `.env`  
+4. Start app with `npm start`  
 
-Este proyecto está bajo la licencia [insertar licencia aquí].
+---
 
-## Estructura de Archivos
+## ▶️ Basic Usage
+- Log in with admin credentials  
+- Create new tickets  
+- Assign tickets to agents  
+- Monitor ticket status from the dashboard  
 
-Describe la estructura de directorios y archivos importantes en el proyecto.
+---
 
+## 📌 Future Improvements
+- Advanced metrics and reporting  
+- Notification system  
+- Multi-language support  
+
+---
+
+## 📌 Repositories
+[Helpdesk Backend Repository](https://github.com/Alex16leiva/helpdesk-backend)
+[Helpdesk Frontend Repository](https://github.com/Alex16leiva/helpdesk-frontend)
+
+---
+
+## 🌐 Other Languages
+For Spanish documentation, see [README.es.md](README.es.md).
