@@ -52,10 +52,10 @@ namespace WebServices.Controllers
         }
 
         [Authorize]
-        [HttpGet("obtener-roles")]
-        public List<RolDTO> ObtenerRoles()
+        [HttpPost("obtener-roles")]
+        public SearchResult<RolDTO> ObtenerRoles(EdicionRolRequest request)
         {
-            var roles = _securityAppService.ObtenerRoles();
+            var roles = _securityAppService.ObtenerRoles(request);
             return roles;
         }
 

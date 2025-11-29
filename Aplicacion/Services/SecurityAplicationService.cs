@@ -234,18 +234,32 @@ namespace Aplicacion.Services
             return new RolDTO();
         }
 
-        public List<RolDTO> ObtenerRoles()
+        public SearchResult<RolDTO> ObtenerRoles(EdicionRolRequest request)
         {
-            var includes = new List<string> { "Permisos" };
-            var roles = _genericRepository.GetAll<Rol>(includes);
+            request.QueryInfo.Includes = new List<string> { "Permisos" };
 
-            return roles.Select(qry =>
-            new RolDTO
+            // Construye el filtro dinámico a partir del QueryInfo que manda el frontend
+            var dynamicFilter = DynamicFilterFactory.CreateDynamicFilter(request.QueryInfo);
+
+
+            // Usa tu repositorio genérico con paginación y filtros
+            var roles = _genericRepository.GetPagedAndFiltered<Rol>(dynamicFilter );
+
+            // Retorna el objeto SearchResult con toda la metadata de paginación
+            return new SearchResult<RolDTO>
             {
-                Descripcion = qry.Descripcion,
-                RolId = qry.RolId,
-                Permisos = MapPermisosDto(qry?.Permisos),
-            }).ToList();
+                PageCount = roles.PageCount,
+                ItemCount = roles.ItemCount,
+                TotalItems = roles.TotalItems,
+                PageIndex = roles.PageIndex,
+                Items = (from qry in roles.Items as IEnumerable<Rol>
+                         select new RolDTO
+                         {
+                             Descripcion = qry.Descripcion,
+                             RolId = qry.RolId,
+                             Permisos = MapPermisosDto(qry?.Permisos),
+                         }).ToList(),
+            };
         }
 
         private static List<PermisosDTO> MapPermisosDto(List<Permisos>? permisos)
